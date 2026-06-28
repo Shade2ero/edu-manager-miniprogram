@@ -18,13 +18,34 @@
   "simulatorPluginLibVersion": {},
   "packOptions": {
     "ignore": [
-      { "type": "folder", "value": "backend" },
-      { "type": "folder", "value": "src" },
-      { "type": "folder", "value": "node_modules" },
-      { "type": "file", "value": "package.json" },
-      { "type": "file", "value": "vite.config.js" },
-      { "type": "file", "value": "index.html" },
-      { "type": "file", "value": ".eslintrc.js" }
+      {
+        "type": "folder",
+        "value": "backend"
+      },
+      {
+        "type": "folder",
+        "value": "src"
+      },
+      {
+        "type": "folder",
+        "value": "node_modules"
+      },
+      {
+        "type": "file",
+        "value": "package.json"
+      },
+      {
+        "type": "file",
+        "value": "vite.config.js"
+      },
+      {
+        "type": "file",
+        "value": "index.html"
+      },
+      {
+        "type": "file",
+        "value": ".eslintrc.js"
+      }
     ],
     "include": []
   },
