@@ -1,0 +1,24 @@
+.page { min-height:100vh; background:linear-gradient(180deg,#E8F4FD,#F5F5F5); display:flex; flex-direction:column; align-items:center; padding-top:120rpx; }
+
+.logo-area { text-align:center; margin-bottom:60rpx; }
+.logo { font-size:100rpx; display:block; margin-bottom:20rpx; }
+.title { font-size:38rpx; font-weight:700; color:#333; display:block; margin-bottom:12rpx; }
+.subtitle { font-size:26rpx; color:#999; display:block; }
+
+.card-list { width:600rpx; display:flex; flex-direction:column; gap:20rpx; }
+
+.card { display:flex; align-items:center; padding:32rpx; background:#fff; border-radius:20rpx; box-shadow:0 4rpx 20rpx rgba(0,0,0,0.06); }
+.card-icon { font-size:52rpx; margin-right:24rpx; }
+.card-info { flex:1; }
+.card-name { font-size:30rpx; font-weight:600; color:#333; display:block; }
+.card-desc { font-size:24rpx; color:#999; display:block; margin-top:4rpx; }
+.card-arrow { font-size:28rpx; color:#CCC; }
+.card-student { border-left:6rpx solid #52C41A; }
+.card-teacher { border-left:6rpx solid #4A90D9; }
+.card-admin { border-left:6rpx solid #FF4D4F; }
+
+.custom-area { margin-top:50rpx; width:600rpx; }
+.custom-divider { text-align:center; margin-bottom:20rpx; font-size:24rpx; color:#CCC; }
+.custom-row { display:flex; gap:16rpx; }
+.custom-input { flex:1; height:80rpx; background:#fff; border-radius:16rpx; padding:0 24rpx; font-size:26rpx; border:1rpx solid #E5E5E5; }
+.custom-btn { width:140rpx; height:80rpx; line-height:80rpx; text-align:center; background:#4A90D9; color:#fff; border-radius:16rpx; font-size:26rpx; border:none; padding:0; }

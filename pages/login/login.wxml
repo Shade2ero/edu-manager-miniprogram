@@ -1,0 +1,44 @@
+<view class="page">
+  <view class="logo-area">
+    <text class="logo">📚</text>
+    <text class="title">智能课消教务管理</text>
+    <text class="subtitle">请选择登录身份</text>
+  </view>
+
+  <view class="card-list">
+    <view class="card card-student" data-openid="dev_openid_001" bindtap="selectRole">
+      <text class="card-icon">👨‍🎓</text>
+      <view class="card-info">
+        <text class="card-name">张三</text>
+        <text class="card-desc">学生</text>
+      </view>
+      <text class="card-arrow">▶</text>
+    </view>
+
+    <view class="card card-teacher" data-openid="dev_teacher_001" bindtap="selectRole">
+      <text class="card-icon">👩‍🏫</text>
+      <view class="card-info">
+        <text class="card-name">李老师</text>
+        <text class="card-desc">教师</text>
+      </view>
+      <text class="card-arrow">▶</text>
+    </view>
+
+    <view class="card card-admin" data-openid="dev_admin_001" bindtap="selectRole">
+      <text class="card-icon">👨‍💼</text>
+      <view class="card-info">
+        <text class="card-name">王管理员</text>
+        <text class="card-desc">管理员</text>
+      </view>
+      <text class="card-arrow">▶</text>
+    </view>
+  </view>
+
+  <view class="custom-area">
+    <view class="custom-divider"><text>或输入 OpenID</text></view>
+    <view class="custom-row">
+      <input class="custom-input" value="{{inputOpenid}}" bindinput="onInput" placeholder="输入 openid"/>
+      <button class="custom-btn" bindtap="customLogin">进入</button>
+    </view>
+  </view>
+</view>

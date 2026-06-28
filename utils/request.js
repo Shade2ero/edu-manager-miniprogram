@@ -7,7 +7,7 @@
  *   api.post('/api/checkin/scan', { ... }).then(data => {...})
  */
 
-const BASE_URL = 'http://192.168.1.17:8080'
+const BASE_URL = 'https://jpqdxt-275539-4-1448024166.sh.run.tcloudbase.com'
 
 function buildHeader() {
   const token = wx.getStorageSync('token') || ''
