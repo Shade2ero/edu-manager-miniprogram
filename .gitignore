@@ -1,0 +1,8 @@
+backend/target/
+backend/.idea/
+*.iml
+node_modules/
+dist/
+.claude/
+*.log
+.DS_Store

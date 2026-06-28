@@ -1,0 +1,59 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: edu-manager
+
+  # 开发阶段暂不使用 Redis，排除自动配置
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/edu_manager?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: zrz9586.
+
+  # Redis 配置（用于分布式锁、缓存、签到码过期管理）
+  redis:
+    host: localhost
+    port: 6379
+    password: ${REDIS_PASSWORD:}
+    database: 0
+    timeout: 3000ms
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  # 实体扫描包
+  type-aliases-package: com.edumanager.entity
+  # Mapper XML 路径
+  mapper-locations: classpath*:/mapper/**/*.xml
+  # 全局配置
+  global-config:
+    db-config:
+      id-type: auto
+      # 未使用逻辑删除，注释掉避免每表查 deleted 列
+      # logic-delete-field: deleted
+  configuration:
+    # 日志输出（开发环境开启，生产环境关闭）
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 驼峰转换
+    map-underscore-to-camel-case: true
+    # 缓存
+    cache-enabled: false
+
+# 微信支付 V3 配置（开发环境占位值，生产需替换为真实商户信息）
+wx:
+  pay:
+    app-id: wx0000000000000000
+    mch-id: 0000000000
+    mch-serial-no: 0000000000000000000000000000000000000000
+    api-v3-key: dev-api-v3-key-placeholder-32b
+    notify-url: https://your-domain.com/api/pay/notify
+
+# 日志级别
+logging:
+  level:
+    com.edumanager: DEBUG

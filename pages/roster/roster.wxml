@@ -1,0 +1,50 @@
+<view class="page">
+  <!-- 课程信息头部 -->
+  <view class="header">
+    <text class="header-title">{{courseName}}</text>
+    <text class="header-time">{{scheduleTime}}</text>
+    <view class="header-actions">
+      <button class="header-btn" bindtap="showQrCode">出示二维码</button>
+    </view>
+  </view>
+
+  <!-- 签到统计 -->
+  <view class="stats">
+    <view class="stat"><text class="stat-num stat-ok">{{checked}}</text><text class="stat-lbl">已签到</text></view>
+    <view class="stat"><text class="stat-num stat-warn">{{pending}}</text><text class="stat-lbl">未签到</text></view>
+    <view class="stat"><text class="stat-num stat-err">{{absent}}</text><text class="stat-lbl">缺勤</text></view>
+    <view class="stat"><text class="stat-num">{{leave}}</text><text class="stat-lbl">请假</text></view>
+  </view>
+
+  <!-- 学员列表 -->
+  <view wx:if="{{students.length > 0}}" class="list">
+    <view wx:for="{{students}}" wx:key="classStudentId" class="item">
+      <view class="item-info">
+        <text class="item-name">{{item.studentName || '学员'}}{{item.studentId}}</text>
+        <text class="item-balance" wx:if="{{item.remainingHours > 0}}">剩余 {{item.remainingHours}} 课时</text>
+        <text class="item-balance item-no-balance" wx:else>无课时</text>
+      </view>
+      <view class="item-right">
+        <text class="item-time" wx:if="{{item.checkInTime}}">{{item.checkInTime}}</text>
+        <text class="item-status {{item._statusCls}}">{{item._statusTxt}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty">暂无学员</view>
+
+  <!-- 二维码弹窗 -->
+  <view class="qr-mask" wx:if="{{showQr}}" bindtap="closeQr">
+    <view class="qr-modal" catchtap>
+      <view class="qr-head"><text class="qr-title">签到二维码</text><text class="qr-close" bindtap="closeQr">✕</text></view>
+      <view class="qr-body">
+        <image class="qr-image" src="{{qrImage}}" mode="aspectFit" />
+        <text class="qr-hint">请学生扫码签到</text>
+      </view>
+      <view class="qr-foot">
+        <button class="qr-btn qr-btn--ok" bindtap="refreshQr">🔄 刷新</button>
+        <button class="qr-btn qr-btn--no" bindtap="closeQr">关闭</button>
+      </view>
+    </view>
+  </view>
+</view>

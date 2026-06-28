@@ -1,0 +1,94 @@
+<wxs module="utils">
+  var getIcon = function(type) {
+    var m = {PURCHASE:'💰',CONSUME:'📝',REFUND:'↩️',ADJUST:'🔧'};
+    return m[type] || '📌';
+  };
+  module.exports = { getIcon: getIcon };
+</wxs>
+
+<view class="page">
+  <!-- 学生个人信息 -->
+  <view class="profile-card">
+    <view class="profile-avatar">👤</view>
+    <view class="profile-info">
+      <text class="profile-name">{{profile.realName || '学员'}}</text>
+      <text class="profile-detail">{{profile.gender || ''}} {{profile.phone || ''}}</text>
+    </view>
+  </view>
+
+  <!-- 课时总览卡片 -->
+  <view class="overview-card">
+    <view class="card-main">
+      <text class="card-label">剩余课时</text>
+      <view class="card-number-row">
+        <text class="card-number">{{remaining}}</text>
+        <text class="card-unit">课时</text>
+      </view>
+      <view class="progress-wrap">
+        <view class="progress-bar">
+          <view class="progress-fill" style="width:{{consumptionPercent}}%"></view>
+        </view>
+        <text class="progress-text">已用 {{totalConsumed}} / 共 {{totalPurchased}} 课时</text>
+      </view>
+    </view>
+    <view class="card-stats">
+      <view class="stat"><text class="stat-val">{{totalPurchased}}</text><text class="stat-lbl">累计购买</text></view>
+      <view class="stat stat-div"><text class="stat-val consume">{{totalConsumed}}</text><text class="stat-lbl">累计消耗</text></view>
+      <view class="stat"><text class="stat-val {{expiryClass}}">{{daysUntilExpiry > 0 ? daysUntilExpiry + '天' : '已过期'}}</text><text class="stat-lbl">剩余有效期</text></view>
+    </view>
+  </view>
+
+  <!-- 余额不足预警 -->
+  <view class="low-alert" wx:if="{{isLowBalance}}">
+    <view class="low-icon">⚠️</view>
+    <view class="low-content">
+      <text class="low-title">课时即将用完</text>
+      <text class="low-desc">剩余课时不足 2 节，请尽快续费</text>
+    </view>
+    <view class="low-action" bindtap="goCourses"><text>去续费</text></view>
+  </view>
+
+  <!-- 课程列表 -->
+  <view class="section-title" wx:if="{{courseList.length > 0}}">各课程课时</view>
+  <view wx:for="{{courseList}}" wx:key="courseId" class="course-card">
+    <view class="course-info">
+      <text class="course-name">{{item.courseName}}</text>
+      <text class="course-expiry" wx:if="{{item.expiresAt}}">有效期至 {{item.expiresAt}}</text>
+    </view>
+    <view class="course-balance">
+      <text class="course-remaining">{{item.remaining}}</text>
+      <text class="course-unit">课时</text>
+    </view>
+  </view>
+
+  <!-- 流水列表 -->
+  <view class="section-title">近期记录
+    <view class="tabs">
+      <text class="tab {{activeTab==='all'?'tab--active':''}}" data-tab="all" bindtap="switchTab">全部</text>
+      <text class="tab {{activeTab==='consume'?'tab--active':''}}" data-tab="consume" bindtap="switchTab">消耗</text>
+      <text class="tab {{activeTab==='purchase'?'tab--active':''}}" data-tab="purchase" bindtap="switchTab">充值</text>
+    </view>
+  </view>
+
+  <view wx:if="{{filteredTransactions.length > 0}}" class="tx-list">
+    <view wx:for="{{filteredTransactions}}" wx:key="id" class="tx-item">
+      <view class="tx-left">
+        <view class="tx-icon tx-icon--{{item.changeType}}">{{utils.getIcon(item.changeType)}}</view>
+        <view class="tx-info">
+          <text class="tx-title">{{item.bizDescription}}</text>
+          <text class="tx-time">{{item.createdAt}}</text>
+          <text class="tx-remark" wx:if="{{item.remark}}">{{item.remark}}</text>
+        </view>
+      </view>
+      <view class="tx-right">
+        <text class="tx-amount {{item.changeType==='PURCHASE'?'tx-plus':'tx-minus'}}">{{item.changeType==='PURCHASE'?'+':''}}{{item.changeAmount}} 课时</text>
+        <text class="tx-balance">余额 {{item.balanceAfter}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-state">
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">暂无记录</text>
+  </view>
+</view>

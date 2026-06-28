@@ -1,0 +1,128 @@
+<wxs module="utils">
+  var fmtPrice = function(c) { if(!c) return '0'; var y=c/100; return y%1===0?y.toFixed(0):y.toFixed(2); };
+  module.exports = { fmtPrice: fmtPrice };
+</wxs>
+
+<view class="page">
+  <view class="header">
+    <text class="header-title">课程购买</text>
+    <text class="header-sub">选择适合的课程和课时包</text>
+    <view class="admin-toggle" wx:if="{{isAdmin}}" bindtap="toggleAdmin">
+      <text>{{adminMode ? '退出管理' : '管理课程'}}</text>
+    </view>
+  </view>
+
+  <!-- ====== 管理模式：新增课程按钮 ====== -->
+  <view class="add-bar" wx:if="{{adminMode}}">
+    <button class="add-btn" bindtap="showAddForm">+ 新增课程</button>
+  </view>
+
+  <!-- ====== 课程列表 ====== -->
+  <view wx:for="{{courses}}" wx:for-index="ci" wx:key="courseId" class="course-card">
+    <view class="card-cover">{{item.coverUrl ? '' : '📚'}}</view>
+    <view class="card-body">
+      <view class="card-head">
+        <text class="card-name">{{item.courseName}}</text>
+        <!-- 管理员模式：一个按钮 + 条件删除 -->
+        <view wx:if="{{adminMode}}" class="admin-actions">
+          <text class="act-btn" data-cid="{{item.courseId}}" catchtap="toggleCourse">{{item.status===1?'下架':'上架'}}</text>
+          <text wx:if="{{item._canDelete}}" class="act-btn act-del" data-cid="{{item.courseId}}" catchtap="deleteCourse">删除</text>
+        </view>
+        <text class="card-category" wx:elif="{{item.category}}">{{item.category}}</text>
+      </view>
+      <text class="card-desc" wx:if="{{item.description}}">{{item.description}}</text>
+
+      <!-- 课时包列表（非管理模式） -->
+      <view wx:if="{{!adminMode}}" class="pkg-list">
+        <view wx:for="{{item.packages}}" wx:for-item="pkg" wx:for-index="pi" wx:key="id"
+              class="pkg-item {{selectedPkg.id===pkg.id?'pkg-item--selected':''}}"
+              data-courseidx="{{ci}}" data-pkgidx="{{pi}}" bindtap="selectPkg">
+          <view class="pkg-main">
+            <text class="pkg-name">{{pkg.name}}</text>
+            <text class="pkg-hours">{{pkg.totalHours}} 课时</text>
+            <text class="pkg-valid" wx:if="{{pkg.validDays}}">有效期 {{pkg.validDays}} 天</text>
+          </view>
+          <view class="pkg-price">
+            <view class="pkg-price-row"><text class="pkg-currency">¥</text><text class="pkg-amount">{{utils.fmtPrice(pkg.price)}}</text></view>
+            <text class="pkg-original" wx:if="{{pkg.originalPrice&&pkg.originalPrice>pkg.price}}">¥{{utils.fmtPrice(pkg.originalPrice)}}</text>
+            <view class="pkg-btn">{{selectedPkg.id===pkg.id?'已选':'选择'}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{courses.length===0}}" class="empty">暂无可用课程</view>
+
+  <!-- 底部购买栏（非管理模式） -->
+  <view class="bottom-bar" wx:if="{{showBar&&!adminMode}}">
+    <view class="bottom-main">
+      <text class="bottom-course">{{selectedCourse.courseName}}</text>
+      <view class="bottom-row">
+        <text class="bottom-price">¥{{utils.fmtPrice(selectedPkg.price)}}</text>
+        <button class="bottom-btn" bindtap="handleBuy">立即购买</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 确认订单弹窗 -->
+  <view class="modal-mask" wx:if="{{showConfirm}}" bindtap="closeConfirm">
+    <view class="confirm-modal" catchtap>
+      <view class="confirm-head"><text class="confirm-title">确认订单</text><text class="confirm-close" bindtap="closeConfirm">✕</text></view>
+      <view class="confirm-body">
+        <view class="confirm-row"><text class="confirm-lbl">课程</text><text>{{selectedCourse.courseName}}</text></view>
+        <view class="confirm-row"><text class="confirm-lbl">课时包</text><text>{{selectedPkg.name}}</text></view>
+        <view class="confirm-row"><text class="confirm-lbl">课时数</text><text class="confirm-hl">{{selectedPkg.totalHours}} 课时</text></view>
+        <view class="confirm-div"></view>
+        <view class="confirm-row"><text class="confirm-lbl">应付</text><text class="confirm-total">¥{{utils.fmtPrice(selectedPkg.price)}}</text></view>
+      </view>
+      <view class="confirm-footer">
+        <button class="btn-cancel" bindtap="closeConfirm">取消</button>
+        <button class="btn-pay" bindtap="handlePay" disabled="{{paying}}">{{paying?'支付中...':'微信支付'}}</button>
+      </view>
+      <view class="confirm-footer">
+        <button class="btn-mock" bindtap="handleMockPay">⚡ 开发模式支付（跳过微信）</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 支付结果弹窗 -->
+  <view class="modal-mask" wx:if="{{showPayResult}}">
+    <view class="result-modal">
+      <text class="result-icon">{{paySuccess?'✅':'❌'}}</text>
+      <text class="result-title">{{paySuccess?'支付成功':'支付失败'}}</text>
+      <text class="result-desc">{{paySuccess?'课时已到账':'支付未完成'}}</text>
+      <button class="result-btn" bindtap="closePayResult">{{paySuccess?'查看我的课时':'重新选择'}}</button>
+    </view>
+  </view>
+
+  <!-- ====== 新增课程弹窗 ====== -->
+  <view class="modal-mask" wx:if="{{showAdd}}" bindtap="closeAdd">
+    <view class="qr-modal" catchtap style="max-height:80vh;overflow-y:auto;">
+      <view class="qr-header"><text class="qr-title">新增课程</text><text class="qr-close" bindtap="closeAdd">✕</text></view>
+      <view class="form-body">
+        <view class="form-row"><text class="form-lbl">课程名</text><input class="form-inp" value="{{addForm.name}}" data-field="name" bindinput="onAddField" placeholder="课程名称"/></view>
+        <view class="form-row"><text class="form-lbl">分类</text><input class="form-inp" value="{{addForm.category}}" data-field="category" bindinput="onAddField" placeholder="如：钢琴、美术"/></view>
+        <view class="form-row"><text class="form-lbl">时长(分)</text><input class="form-inp" value="{{addForm.duration}}" data-field="duration" bindinput="onAddField" type="number"/></view>
+        <view class="form-row"><text class="form-lbl">简介</text><input class="form-inp" value="{{addForm.desc}}" data-field="desc" bindinput="onAddField" placeholder="课程简介"/></view>
+        <view class="form-divider">课时包设置
+          <text class="add-pkg-btn" bindtap="addPkgItem">+ 添加</text>
+        </view>
+        <view wx:for="{{addForm.packages}}" wx:key="index" class="pkg-form-item">
+          <view class="pkg-form-hd">
+            <text>课时包 {{index+1}}</text>
+            <text wx:if="{{addForm.packages.length>1}}" class="pkg-del-btn" data-idx="{{index}}" bindtap="delPkgItem">删除</text>
+          </view>
+          <view class="form-row"><text class="form-lbl">名称</text><input class="form-inp" value="{{item.name}}" data-idx="{{index}}" data-field="name" bindinput="onPkgField" placeholder="如：16课时包"/></view>
+          <view class="form-row"><text class="form-lbl">课时数</text><input class="form-inp" value="{{item.hours}}" data-idx="{{index}}" data-field="hours" bindinput="onPkgField" type="number"/></view>
+          <view class="form-row"><text class="form-lbl">售价(元)</text><input class="form-inp" value="{{item.price}}" data-idx="{{index}}" data-field="price" bindinput="onPkgField" type="digit" placeholder="如：2980"/></view>
+          <view class="form-row"><text class="form-lbl">原价(元)</text><input class="form-inp" value="{{item.origPrice}}" data-idx="{{index}}" data-field="origPrice" bindinput="onPkgField" type="digit" placeholder="如：3560（选填）"/></view>
+        </view>
+      </view>
+      <view class="qr-footer">
+        <button class="qr-btn qr-btn--refresh" bindtap="doAddCourse">确认创建</button>
+        <button class="qr-btn qr-btn--close" bindtap="closeAdd">取消</button>
+      </view>
+    </view>
+  </view>
+</view>

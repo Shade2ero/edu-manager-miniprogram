@@ -1,0 +1,8 @@
+/* 全局样式 — 智能课消教务管理小程序 */
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  font-size: 28rpx;
+  color: #333;
+  background-color: #F5F5F5;
+  box-sizing: border-box;
+}

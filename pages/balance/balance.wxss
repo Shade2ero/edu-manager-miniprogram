@@ -1,0 +1,78 @@
+.page { min-height:100vh; background:#F5F5F5; padding-bottom:40rpx; }
+
+/* 个人信息卡片 */
+.profile-card { display:flex; align-items:center; margin:24rpx; padding:24rpx; background:#fff; border-radius:16rpx; }
+.profile-avatar { width:80rpx; height:80rpx; background:#E8F4FD; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:40rpx; margin-right:20rpx; }
+.profile-name { font-size:30rpx; font-weight:600; color:#333; display:block; }
+.profile-detail { font-size:24rpx; color:#999; display:block; margin-top:4rpx; }
+
+/* 课时总览卡片 */
+.overview-card { margin:24rpx; padding:36rpx; background:linear-gradient(135deg,#4A90D9,#3A7BC8,#2563A0); border-radius:24rpx; color:#fff; }
+.card-main { text-align:center; padding-bottom:28rpx; border-bottom:1rpx solid rgba(255,255,255,0.2); }
+.card-label { font-size:26rpx; color:rgba(255,255,255,0.8); }
+.card-number-row { display:flex; align-items:baseline; justify-content:center; margin-bottom:20rpx; }
+.card-number { font-size:96rpx; font-weight:800; line-height:1; }
+.card-unit { font-size:32rpx; margin-left:12rpx; color:rgba(255,255,255,0.9); }
+.progress-wrap { padding:0 40rpx; }
+.progress-bar { height:8rpx; background:rgba(255,255,255,0.25); border-radius:4rpx; overflow:hidden; }
+.progress-fill { height:100%; background:rgba(255,255,255,0.85); border-radius:4rpx; }
+.progress-text { font-size:22rpx; color:rgba(255,255,255,0.7); margin-top:8rpx; display:block; text-align:center; }
+
+.card-stats { display:flex; margin-top:24rpx; }
+.stat { flex:1; text-align:center; }
+.stat-div { border-left:1rpx solid rgba(255,255,255,0.2); border-right:1rpx solid rgba(255,255,255,0.2); }
+.stat-val { font-size:36rpx; font-weight:700; display:block; }
+.stat-val.consume { color:#FFD666; }
+.stat-val.warning { color:#FFD666; }
+.stat-val.danger { color:#FF7875; }
+.stat-lbl { font-size:22rpx; color:rgba(255,255,255,0.7); }
+
+/* 预警条 */
+.low-alert { display:flex; align-items:center; margin:0 24rpx 16rpx; padding:20rpx 24rpx; background:linear-gradient(135deg,#FFF7E6,#FFFBE6); border-radius:16rpx; border:1rpx solid #FFE58F; }
+.low-icon { font-size:36rpx; margin-right:20rpx; }
+.low-content { flex:1; }
+.low-title { font-size:26rpx; font-weight:600; color:#D48806; display:block; }
+.low-desc { font-size:22rpx; color:#D48806; opacity:0.8; }
+.low-action { padding:10rpx 24rpx; background:#FAAD14; border-radius:24rpx; font-size:24rpx; color:#fff; }
+
+/* 区域标题 */
+.section-title { display:flex; justify-content:space-between; align-items:center; margin:32rpx 24rpx 16rpx; font-size:30rpx; font-weight:600; color:#333; }
+.tabs { display:flex; gap:8rpx; }
+.tab { padding:8rpx 20rpx; font-size:24rpx; color:#999; background:#F0F0F0; border-radius:20rpx; }
+.tab--active { color:#fff; background:#4A90D9; }
+
+/* 课程卡片 */
+.course-card { display:flex; align-items:center; margin:0 24rpx 12rpx; padding:24rpx; background:#fff; border-radius:16rpx; }
+.course-name { font-size:28rpx; font-weight:500; color:#333; display:block; }
+.course-expiry { font-size:22rpx; color:#999; margin-top:4rpx; display:block; }
+.course-info { flex:1; }
+.course-balance { display:flex; align-items:baseline; }
+.course-remaining { font-size:40rpx; font-weight:700; color:#4A90D9; }
+.course-unit { font-size:24rpx; color:#999; margin-left:4rpx; }
+
+/* 流水列表 */
+.tx-list { margin:0 24rpx; }
+.tx-item { display:flex; justify-content:space-between; align-items:center; padding:24rpx; background:#fff; margin-bottom:2rpx; }
+.tx-item:first-child { border-radius:16rpx 16rpx 0 0; }
+.tx-item:last-child { border-radius:0 0 16rpx 16rpx; margin-bottom:0; }
+.tx-item:only-child { border-radius:16rpx; }
+.tx-left { display:flex; align-items:flex-start; flex:1; min-width:0; }
+.tx-icon { width:64rpx; height:64rpx; border-radius:16rpx; display:flex; align-items:center; justify-content:center; font-size:28rpx; margin-right:20rpx; }
+.tx-icon--PURCHASE { background:#F0FFF4; }
+.tx-icon--CONSUME { background:#FFF7E6; }
+.tx-icon--REFUND { background:#FFF1F0; }
+.tx-icon--ADJUST { background:#F0F5FF; }
+.tx-info { flex:1; min-width:0; }
+.tx-title { font-size:26rpx; font-weight:500; color:#333; display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.tx-time { font-size:22rpx; color:#999; display:block; margin-top:4rpx; }
+.tx-remark { font-size:22rpx; color:#BBB; display:block; margin-top:2rpx; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.tx-right { display:flex; flex-direction:column; align-items:flex-end; margin-left:16rpx; }
+.tx-amount { font-size:28rpx; font-weight:600; }
+.tx-plus { color:#52C41A; }
+.tx-minus { color:#333; }
+.tx-balance { font-size:22rpx; color:#999; margin-top:4rpx; }
+
+/* 空状态 */
+.empty-state { display:flex; flex-direction:column; align-items:center; padding:80rpx 0; }
+.empty-icon { font-size:64rpx; margin-bottom:20rpx; }
+.empty-text { font-size:28rpx; color:#999; }

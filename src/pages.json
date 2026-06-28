@@ -1,0 +1,80 @@
+{
+  "easycom": {
+    "autoscan": true,
+    "custom": {}
+  },
+  "pages": [
+    {
+      "path": "pages/checkin/checkin",
+      "style": {
+        "navigationBarTitleText": "扫码签到",
+        "navigationBarBackgroundColor": "#4A90D9",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/courses/courses",
+      "style": {
+        "navigationBarTitleText": "课程购买",
+        "navigationBarBackgroundColor": "#4A90D9",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/balance/balance",
+      "style": {
+        "navigationBarTitleText": "我的课时",
+        "navigationBarBackgroundColor": "#4A90D9",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/dashboard/dashboard",
+      "style": {
+        "navigationBarTitleText": "数据看板",
+        "navigationBarBackgroundColor": "#4A90D9",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/schedule/schedule",
+      "style": {
+        "navigationBarTitleText": "排课管理",
+        "navigationBarBackgroundColor": "#4A90D9",
+        "navigationBarTextStyle": "white"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "教务管理",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F5F5F5"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#4A90D9",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/checkin/checkin",
+        "text": "签到",
+        "iconPath": "static/icons/checkin.png",
+        "selectedIconPath": "static/icons/checkin-active.png"
+      },
+      {
+        "pagePath": "pages/courses/courses",
+        "text": "购课",
+        "iconPath": "static/icons/courses.png",
+        "selectedIconPath": "static/icons/courses-active.png"
+      },
+      {
+        "pagePath": "pages/balance/balance",
+        "text": "我的课时",
+        "iconPath": "static/icons/balance.png",
+        "selectedIconPath": "static/icons/balance-active.png"
+      }
+    ]
+  }
+}

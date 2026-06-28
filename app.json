@@ -1,0 +1,57 @@
+{
+  "pages": [
+    "pages/checkin/checkin",
+    "pages/courses/courses",
+    "pages/balance/balance",
+    "pages/schedule/schedule",
+    "pages/roster/roster"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "教务管理",
+    "navigationBarBackgroundColor": "#4A90D9",
+    "backgroundColor": "#F5F5F5"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#999999",
+    "selectedColor": "#4A90D9",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/checkin/checkin",
+        "text": "签到",
+        "iconPath": "static/icons/checkin.png",
+        "selectedIconPath": "static/icons/checkin-active.png"
+      },
+      {
+        "pagePath": "pages/courses/courses",
+        "text": "购课",
+        "iconPath": "static/icons/courses.png",
+        "selectedIconPath": "static/icons/courses-active.png"
+      },
+      {
+        "pagePath": "pages/balance/balance",
+        "text": "课时",
+        "iconPath": "static/icons/balance.png",
+        "selectedIconPath": "static/icons/balance-active.png"
+      },
+      {
+        "pagePath": "pages/schedule/schedule",
+        "text": "排课",
+        "iconPath": "static/icons/schedule.png",
+        "selectedIconPath": "static/icons/schedule-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "需要获取您的位置信息用于签到验证"
+    }
+  },
+  "requiredPrivateInfos": ["getLocation"]
+}
